@@ -15,12 +15,12 @@
 <div id="header">
 	<div class="menu">
 
-			<button class="button" id="btn2" onclick="setCurTime(0)">Play all</button>
-			<button class="button" onclick="setCurTime(51)">Chapter 1</button>
-			<button class="button" onclick="setCurTime(106)">Chapter 2</button>
-			<button class="button" onclick="setCurTime(153)">Chapter 3<p></button>
-			<button class="button" onclick="setCurTime(195)">Chapter 4</button>
-			<button class="button" onclick="setCurTime(240)">Chapter 5</button>
+			<button class="button chapter-seeker" id="btn2" data-target-time="0">Play all</button>
+			<button class="button chapter-seeker" data-target-time="51">Chapter 1</button>
+			<button class="button chapter-seeker" data-target-time="106">Chapter 2</button>
+			<button class="button chapter-seeker" data-target-time="153">Chapter 3<p></button>
+			<button class="button chapter-seeker" data-target-time="195">Chapter 4</button>
+			<button class="button chapter-seeker" data-target-time="240">Chapter 5</button>
 </div>
 
 	<div class="content">
@@ -39,34 +39,41 @@
 /*
     //buttons always active
 	$('.button').click(function(e) {
-	    $('.button').not(this).removeClass('active');    
+	    $('.button').not(this).removeClass('active');
 	    $(this).toggleClass('active');
 	    e.preventDefault();
 	})
 */
 
-	var vid = document.getElementById("current_video");
-	function setCurTime(timeValue)
-	{
-	  vid.currentTime = timeValue;
-	}
+    $(document).ready(function() {
 
-	// initalize video.js
-	var video = videojs("current_video");
+        // initalize video.js
+        videojs("current_video").ready(function() {
+            var player = this;
 
-    // load the marker plugin
-    video.markers({
-      onMarkerReached: function(marker) { /* do stuff */ },
-      markers: [
-         {time: 51,  text: "Chapter 1"},
-         {time: 106, text: "Chapter 2"},
-         {time: 153, text: "Chapter 3"}, 
-         {time: 195, text: "Chapter 4"},
-         {time: 240, text: "Chapter 5"}
-      ]
-    });
-    console.log("TEST");
-    
+            player.markers({
+              onMarkerReached: function(marker) { /* do stuff */ },
+              markers: [
+                 {time: 51,  text: "Chapter 1"},
+                 {time: 106, text: "Chapter 2"},
+                 {time: 153, text: "Chapter 3"},
+                 {time: 195, text: "Chapter 4"},
+                 {time: 240, text: "Chapter 5"}
+              ]
+            });
+
+            $('.chapter-seeker').click(function() {
+                var targetTime = $(this).data('targetTime');
+
+                console.log("attempting to seek to " + targetTime);
+                player.currentTime(targetTime);
+            }
+
+        });
+
+        console.log("TEST");
+    }
+
 </script>
 
 </body>
