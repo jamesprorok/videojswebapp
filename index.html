@@ -45,14 +45,13 @@
 	})
 */
 
-	var vid = document.getElementById("current_video");
-	function setCurTime(timeValue)
-	{
-	  vid.currentTime = timeValue;
-	}
-
 	// initalize video.js
 	var video = videojs("current_video");
+
+	function setCurTime(timeValue)
+	{
+	  video.currentTime(timeValue);
+	}
 
     // load the marker plugin
     video.markers({
