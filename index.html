@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video.js Web App</title>
+  <link href="assets/css/style.css" rel="stylesheet" type="text/css" charset="utf-8">
+  <link href="assets/css/video-js.css" rel="stylesheet" type="text/css" charset="utf-8">
+  <script src="assets/js/video.js"></script>
+  <script src="assets/js/jquery-2.0.3.min.js"></script>
+  <script src="assets/js/videojs-markers.js"></script>
+  <link href="assets/css/videojs.markers.css" rel="stylesheet" type="text/css" charset="utf-8">
+</head>
+
+<body>
+
+<div id="header">
+	<div class="menu">
+
+			<button class="button" id="btn2" onclick="setCurTime(0)">Play all</button>
+			<button class="button" onclick="setCurTime(51)">Chapter 1</button>
+			<button class="button" onclick="setCurTime(106)">Chapter 2</button>
+			<button class="button" onclick="setCurTime(153)">Chapter 3<p></button>
+			<button class="button" onclick="setCurTime(195)">Chapter 4</button>
+			<button class="button" onclick="setCurTime(240)">Chapter 5</button>
+</div>
+
+	<div class="content">
+
+		  <video id="current_video" class="video-js vjs-default-skin" controls preload="auto" width="900" height="506" 
+		  poster="assets/images/poster.jpg" data-setup='{ "asdf": true }'>
+
+		  <source src="assets/video/film.mp4" type='video/mp4' />
+
+		  </video>
+	</div>
+</div>
+
+<script>
+
+/*
+    //buttons always active
+	$('.button').click(function(e) {
+	    $('.button').not(this).removeClass('active');    
+	    $(this).toggleClass('active');
+	    e.preventDefault();
+	})
+*/
+
+	var vid = document.getElementById("current_video");
+	function setCurTime(timeValue)
+	{
+	  vid.currentTime = timeValue;
+	}
+
+	// initalize video.js
+	var video = videojs("current_video");
+
+    // load the marker plugin
+    video.markers({
+      onMarkerReached: function(marker) { /* do stuff */ },
+      markers: [
+         {time: 51,  text: "Chapter 1"},
+         {time: 106, text: "Chapter 2"},
+         {time: 153, text: "Chapter 3"}, 
+         {time: 195, text: "Chapter 4"},
+         {time: 240, text: "Chapter 5"}
+      ]
+    });
+    console.log("TEST");
+    
+</script>
+
+</body>
+</html>
