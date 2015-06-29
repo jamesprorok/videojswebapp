@@ -64,7 +64,8 @@
     function setCurTime(timeValue)
     {
         videojs("current_video").ready(function() {
-            this.currentTime(timeValue);
+            var player = this;
+            player.currentTime(timeValue);
         }
     }
 
