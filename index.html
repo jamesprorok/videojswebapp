@@ -39,33 +39,37 @@
 /*
     //buttons always active
 	$('.button').click(function(e) {
-	    $('.button').not(this).removeClass('active');    
+	    $('.button').not(this).removeClass('active');
 	    $(this).toggleClass('active');
 	    e.preventDefault();
 	})
 */
 
 	// initalize video.js
-	var video = videojs("current_video");
+    videojs("current_video").ready(function() {
+        var player = this;
 
-	function setCurTime(timeValue)
-	{
-	  video.currentTime(timeValue);
-	}
-
-    // load the marker plugin
-    video.markers({
-      onMarkerReached: function(marker) { /* do stuff */ },
-      markers: [
-         {time: 51,  text: "Chapter 1"},
-         {time: 106, text: "Chapter 2"},
-         {time: 153, text: "Chapter 3"}, 
-         {time: 195, text: "Chapter 4"},
-         {time: 240, text: "Chapter 5"}
-      ]
+        player.markers({
+          onMarkerReached: function(marker) { /* do stuff */ },
+          markers: [
+             {time: 51,  text: "Chapter 1"},
+             {time: 106, text: "Chapter 2"},
+             {time: 153, text: "Chapter 3"},
+             {time: 195, text: "Chapter 4"},
+             {time: 240, text: "Chapter 5"}
+          ]
+        });
     });
+
+    function setCurTime(timeValue)
+    {
+        videojs("current_video").ready(function() {
+            this.currentTime(timeValue);
+        }
+    }
+
     console.log("TEST");
-    
+
 </script>
 
 </body>
